@@ -3,4 +3,4 @@ app = Flask(__name__)
 
 @app.route("/")
 def home():
-    return "Hello from App 1 - UPDATED!"
+    return "Hello from Application 1 - UPDATED!"
