@@ -11,3 +11,4 @@ GitHub Webhooks
 
 Ngrok (for public URL)
 
+Plugins to be installed
