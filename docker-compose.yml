@@ -1,0 +1,39 @@
+version: '3'
+
+services:
+  jenkins:
+    build: ./jenkins
+    container_name: jenkins
+    ports:
+      - "8080:8080"
+      - "50000:50000"
+    volumes:
+      - jenkins_home:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - jenkins-net
+
+  app1:
+    build: ./app1
+    container_name: app1
+    ports:
+      - "5001:5000"
+    networks:
+      - jenkins-net
+    restart: always
+
+  app2:
+    build: ./app2
+    container_name: app2
+    ports:
+      - "5002:5000"
+    networks:
+      - jenkins-net
+    restart: always
+
+volumes:
+  jenkins_home:
+
+networks:
+  jenkins-net:
+    driver: bridge
