@@ -10,3 +10,7 @@ Jenkins (in Docker)
 GitHub Webhooks
 
 Ngrok (for public URL)
+git add .
+git commit -m "test webhook"
+git push
+
