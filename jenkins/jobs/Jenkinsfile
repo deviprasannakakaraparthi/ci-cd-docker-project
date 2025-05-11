@@ -1,35 +1,32 @@
 pipeline {
-  agent any
-  
-  triggers {
-    githubPush() // This triggers the pipeline on push events from GitHub
-  }
+    agent any
 
-  stages {
-    stage('Build App1') {
-      steps {
-        echo "Rebuilding App1..."
-        sh '''
-          docker stop app1 || true
-          docker rm app1 || true
-          docker rmi app1 || true
-          docker build -t app1 ./app1
-          docker run -d --name app1 --network jenkins-net -p 5001:5000 app1
-        '''
-      }
-    }
+    stages {
+        stage('Build App1') {
+            steps {
+                echo "Rebuilding App1..."
+                sh '''
+                    docker network create jenkins-net || true
+                    docker stop app1 || true
+                    docker rm app1 || true
+                    docker rmi app1 || true
+                    docker build -t app1 ./app1
+                    docker run -d --name app1 --network jenkins-net -p 5001:5000 app1
+                '''
+            }
+        }
 
-    stage('Build App2') {
-      steps {
-        echo "Rebuilding App2..."
-        sh '''
-          docker stop app2 || true
-          docker rm app2 || true
-          docker rmi app2 || true
-          docker build -t app2 ./app2
-          docker run -d --name app2 --network jenkins-net -p 5002:5000 app2
-        '''
-      }
+        stage('Build App2') {
+            steps {
+                echo "Rebuilding App2..."
+                sh '''
+                    docker stop app2 || true
+                    docker rm app2 || true
+                    docker rmi app2 || true
+                    docker build -t app2 ./app2
+                    docker run -d --name app2 --network jenkins-net -p 5002:5000 app2
+                '''
+            }
+        }
     }
-  }
 }
