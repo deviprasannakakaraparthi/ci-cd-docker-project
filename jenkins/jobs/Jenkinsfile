@@ -6,7 +6,6 @@ pipeline {
             steps {
                 echo "Rebuilding App1..."
                 sh '''
-                    docker network create jenkins-net || true
                     docker stop app1 || true
                     docker rm app1 || true
                     docker rmi app1 || true
@@ -18,13 +17,26 @@ pipeline {
 
         stage('Build App2') {
             steps {
-                echo "Rebuilding the App2..."
+                echo "Rebuilding App2..."
                 sh '''
                     docker stop app2 || true
                     docker rm app2 || true
                     docker rmi app2 || true
                     docker build -t app2 ./app2
                     docker run -d --name app2 --network jenkins-net -p 5002:5000 app2
+                '''
+            }
+        }
+
+        stage('Build Jenkins Pipeline') {
+            steps {
+                echo "Rebuilding Jenkins Pipeline container..."
+                sh '''
+                    docker stop jenkins || true
+                    docker rm jenkins || true
+                    docker rmi jenkins || true
+                    docker build -t jenkins ./jenkins
+                    docker run -d --name jenkins --network jenkins-net -p 8080:8080 jenkins
                 '''
             }
         }
