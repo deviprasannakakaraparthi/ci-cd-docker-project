@@ -18,7 +18,7 @@ pipeline {
 
         stage('Build App2') {
             steps {
-                echo "Rebuilding App2..."
+                echo "Rebuilding the App2..."
                 sh '''
                     docker stop app2 || true
                     docker rm app2 || true
