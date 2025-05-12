@@ -23,7 +23,7 @@ pipeline {
                     docker rm app2 || true
                     docker rmi app2 || true
                     docker build -t app2 ./app2
-                    docker run -d --name app2 --network jenkins-net -p 5004:5000 app2
+                    docker run -d --name app2 --network jenkins-net -p 5009:5000 app2
                 '''
             }
         }
